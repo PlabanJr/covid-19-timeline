@@ -1,46 +1,42 @@
+<script>
+  import axios from "axios";
+  import { onMount } from "svelte";
+
+  import AllInformation from "../components/information.svelte";
+  import AllInformationChart from "../components/information-chart.svelte";
+
+  let data = {},
+    responseData = {},
+    loadingAll = true,
+    loadingAllHistorical = true;
+
+  onMount(() => {
+    axios
+      .get("https://corona.lmao.ninja/all")
+      .then(res => {
+        data = res.data;
+        loadingAll = false;
+      })
+      .catch(error => console.error(error));
+
+    axios
+      .get("https://corona.lmao.ninja/v2/historical/all")
+      .then(res => {
+        loadingAllHistorical = false;
+        responseData = res.data;
+      })
+      .catch(error => console.error(error));
+  });
+</script>
+
 <style>
-	h1, figure, p {
-		text-align: center;
-		margin: 0 auto;
-	}
-
-	h1 {
-		font-size: 2.8em;
-		text-transform: uppercase;
-		font-weight: 700;
-		margin: 0 0 0.5em 0;
-	}
-
-	figure {
-		margin: 0 0 1em 0;
-	}
-
-	img {
-		width: 100%;
-		max-width: 400px;
-		margin: 0 0 1em 0;
-	}
-
-	p {
-		margin: 1em auto;
-	}
-
-	@media (min-width: 480px) {
-		h1 {
-			font-size: 4em;
-		}
-	}
+  .body-wrapper {
+    display: flex;
+    flex-direction: column;
+  }
 </style>
 
-<svelte:head>
-	<title>Sapper project template</title>
-</svelte:head>
-
-<h1>Great success!</h1>
-
-<figure>
-	<img alt='Borat' src='great-success.png'>
-	<figcaption>HIGH FIVE!</figcaption>
-</figure>
-
-<p><strong>Try editing this file (src/routes/index.svelte) to test live reloading.</strong></p>
+<div class="body-wrapper">
+  <AllInformation {data} loading={loadingAll} header={true} />
+  <AllInformationChart {responseData} loading={loadingAllHistorical} />
+</div>

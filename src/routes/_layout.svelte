@@ -1,22 +1,23 @@
 <script>
-	import Nav from '../components/Nav.svelte';
+  import NavBar from "../components/navigationBar.svelte";
+  import FooterView from "../components/footer.svelte";
 
-	export let segment;
+  export let segment;
 </script>
 
 <style>
-	main {
-		position: relative;
-		max-width: 56em;
-		background-color: white;
-		padding: 2em;
-		margin: 0 auto;
-		box-sizing: border-box;
-	}
+  main {
+    position: relative;
+    background-color: white;
+    margin: 0 auto;
+    box-sizing: border-box;
+  }
 </style>
 
-<Nav {segment}/>
+<NavBar {segment} />
 
 <main>
-	<slot></slot>
+  <slot />
 </main>
+
+<FooterView />
