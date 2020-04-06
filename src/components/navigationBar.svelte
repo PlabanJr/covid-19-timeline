@@ -2,8 +2,6 @@
   export let segment;
 
   const corona = "Corona.svg";
-
-  $: console.log(segment);
 </script>
 
 <style>
@@ -32,6 +30,7 @@
     padding: 10px;
     font-size: 16px;
     cursor: pointer;
+    font-weight: normal;
   }
 
   a {
@@ -88,13 +87,6 @@
         aria-current={segment === 'countries' ? 'page' : undefined}
         href="countries">
         COUNTRIES
-      </a>
-    </li>
-    <li>
-      <a
-        aria-current={segment === 'graphs-charts' ? 'page' : undefined}
-        href="graphs-charts">
-        GRAPHS & CHARTS
       </a>
     </li>
     <li>

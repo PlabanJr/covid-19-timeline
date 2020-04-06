@@ -1,6 +1,15 @@
+<script>
+  export let setCurrentCountry;
+
+  let searchQuery = "";
+
+  const changeCurrentCountry = () => {
+    setCurrentCountry(searchQuery);
+  };
+</script>
+
 <style>
   .search-bar-wrapper {
-    padding: 20px 120px;
     width: 100%;
     display: flex;
     justify-content: space-between;
@@ -9,14 +18,12 @@
 
   input {
     width: 100%;
-    margin-left: 0px;
   }
 
   button,
   input {
     padding: 10px 20px;
     font-size: 15px;
-    margin-left: 10px;
     border-radius: 5px;
     border: 1px solid #00756a;
     text-transform: uppercase;
@@ -26,10 +33,16 @@
   button {
     background: #00756a;
     color: #fff;
+    margin-left: 10px;
+    cursor: pointer;
   }
 </style>
 
 <div class="search-bar-wrapper">
-  <input placeholder="Country name" />
-  <button>Search</button>
+  <input
+    placeholder="Country name"
+    bind:value={searchQuery}
+    type="search"
+    autocomplete="country-name" />
+  <button on:click={changeCurrentCountry}>Search</button>
 </div>

@@ -1,34 +1,93 @@
 <script>
+  import { onMount } from "svelte";
+  import axios from "axios";
+
   import SearchBar from "../components/searchBar.svelte";
+  import CountryList from "../components/countryList.svelte";
   import Information from "../components/information.svelte";
   import InformationChart from "../components/information-chart.svelte";
+  import Loading from "../components/loading.svelte";
+
+  const hideCases = true;
+  let currentCountryData = {},
+    countries = [],
+    loading = true,
+    chartLoading = true,
+    responseData = {};
+
+  onMount(() => {
+    axios
+      .get("https://corona.lmao.ninja/countries")
+      .then(response => {
+        countries = response.data;
+        currentCountryData = response.data[0];
+        loading = false;
+      })
+      .then(() => getHistoricalData())
+      .catch(e => console.error(e));
+  });
+
+  const getHistoricalData = (country = currentCountryData.country) => {
+    chartLoading = true;
+
+    axios
+      .get("https://corona.lmao.ninja/v2/historical/" + country)
+      .then(response => {
+        responseData = response.data.timeline;
+        chartLoading = false;
+      })
+      .catch(e => console.error(e));
+  };
+
+  const setCurrentCountry = currentCountry => {
+    getHistoricalData(currentCountry);
+
+    currentCountryData = countries.find(
+      country => country.country.toLowerCase() === currentCountry.toLowerCase()
+    );
+  };
 </script>
 
 <style>
   .wrapper {
     display: flex;
     justify-content: space-between;
-    padding-top: 20px;
+    padding-top: 50px;
   }
 
-  .left-wrapper {
+  .left-wrapper,
+  .right-wrapper {
     display: flex;
     flex-direction: column;
     flex: 2;
+    padding: 0px 20px 20px 120px;
   }
 
   .right-wrapper {
-    flex: 3;
+    padding: 0px 120px 20px 20px;
   }
 </style>
 
 <div class="wrapper">
   <section class="left-wrapper">
-    <Information data={{}} loading={true} />
-    <SearchBar />
+    <SearchBar {setCurrentCountry} />
+    <CountryList {countries} {setCurrentCountry} {loading} />
   </section>
 
   <section class="right-wrapper">
-    <InformationChart responseData={{}} loading={true} />
+    <Information
+      data={currentCountryData}
+      {loading}
+      header={currentCountryData.country || 'country'}
+      {hideCases} />
+
+    {#if chartLoading}
+      <Loading />
+    {:else}
+      <InformationChart
+        title={'Historical Data of ' + currentCountryData.country}
+        {responseData}
+        height="350px" />
+    {/if}
   </section>
 </div>

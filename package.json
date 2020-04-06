@@ -12,6 +12,8 @@
     "test": "run-p --race dev cy:run"
   },
   "dependencies": {
+    "axios": "^0.19.2",
+    "chart.js": "^2.9.3",
     "compression": "^1.7.1",
     "polka": "next",
     "sirv": "^0.4.0"

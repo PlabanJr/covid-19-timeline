@@ -1,11 +1,11 @@
 <script>
   import { onMount } from "svelte";
-  import { fade } from "svelte/transition";
   import axios from "axios";
   import Chart from "chart.js";
 
   export let responseData = {};
-  export let loading;
+  export let height = "450px";
+  export let title = "Global Historical Data";
 
   let cases, trendChart;
 
@@ -14,22 +14,22 @@
     trendChart = new Chart(cases, {
       type: "line",
       data: {
-        labels: Object.keys(responseData.cases),
+        labels: Object.keys(responseData.cases) || [0, 1, 2],
         datasets: [
           {
-            data: Object.values(responseData.cases),
+            data: Object.values(responseData.cases) || [0, 0, 0],
             label: "Total Cases",
             borderColor: "red",
             fill: false
           },
           {
-            data: Object.values(responseData.deaths),
+            data: Object.values(responseData.deaths) || [0, 0, 0],
             label: "Deaths",
             borderColor: "blue",
             fill: false
           },
           {
-            data: Object.values(responseData.recovered),
+            data: Object.values(responseData.recovered) || [0, 0, 0],
             label: "Recovered",
             borderColor: "green",
             fill: false
@@ -37,7 +37,11 @@
         ]
       },
       options: {
-        maintainAspectRatio: false
+        maintainAspectRatio: false,
+        title: {
+          display: true,
+          text: title
+        }
       }
     });
 
@@ -48,39 +52,18 @@
     });
   };
 
-  $: if (loading === false) renderCharts();
+  onMount(() => renderCharts());
 </script>
 
 <style>
   .chart-wrapper {
-    padding: 0px 110px 50px;
     height: 450px;
     display: flex;
     flex-direction: column;
-  }
-
-  .placeholder {
-    height: 450px;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    font-size: 30px;
-    padding-top: 100px;
-  }
-
-  .placeholder img {
-    height: 120px;
+    padding-top: 20px;
   }
 </style>
 
-<div class="chart-wrapper">
-  {#if loading}
-    <div class="placeholder">
-      <img src="Corona.svg" alt="logo" />
-      LOADING...
-    </div>
-  {/if}
-  <canvas id="cases" bind:this={cases} in:fade={{ duration: 800 }} />
+<div class="chart-wrapper" style={`height: ${height}`}>
+  <canvas id="cases" bind:this={cases} />
 </div>

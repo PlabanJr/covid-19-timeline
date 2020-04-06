@@ -4,8 +4,9 @@
   import { fade } from "svelte/transition";
 
   export let loading;
-  export let data;
+  export let data = {};
   export let header;
+  export let hideCases;
 
   const fadeInDuration = 800;
   const placeholderText = "---";
@@ -40,8 +41,7 @@
 <style>
   header {
     font-size: 2rem;
-    padding: 40px 120px 0;
-    font-weight: bolder;
+    padding-left: 10px;
   }
 
   .global-head {
@@ -49,6 +49,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    text-transform: uppercase;
   }
 
   .updated-at {
@@ -64,7 +65,6 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
-    padding: 5px 110px;
   }
 
   h2,
@@ -102,27 +102,28 @@
   }
 </style>
 
-{#if header}
-  <header>
-    <div class="global-head">
-      GLOBAL
-      <div class="updated-at">
-        LAST UPDATED:
-        <time>{formatedTimestamp}</time>
-      </div>
+<header>
+  <div class="global-head">
+    {header}
+    <div class="updated-at">
+      LAST UPDATED:
+      <time>{formatedTimestamp}</time>
     </div>
-  </header>
-{/if}
+  </div>
+</header>
 
 <section class="wrapper">
-  <div class="total-cases cards">
-    <h2 class="title">TOTAL</h2>
-    {#if loading}
-      <h1 class="placeholder">{placeholderText}</h1>
-    {:else}
-      <h1 in:fade={{ duration: fadeInDuration }}>{totalCases}</h1>
-    {/if}
-  </div>
+
+  {#if !hideCases}
+    <div class="total-cases cards">
+      <h2 class="title">TOTAL</h2>
+      {#if loading}
+        <h1 class="placeholder">{placeholderText}</h1>
+      {:else}
+        <h1 in:fade={{ duration: fadeInDuration }}>{totalCases}</h1>
+      {/if}
+    </div>
+  {/if}
 
   <div class="active-cases cards">
     <h2 class="title">ACTIVE</h2>
