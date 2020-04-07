@@ -36,13 +36,26 @@
   .body-wrapper {
     display: flex;
     flex-direction: column;
-    padding: 50px 110px;
+    padding: 50px;
   }
 
   .charts {
     display: flex;
     justify-content: space-around;
+    flex-direction: column;
     padding-top: 30px;
+  }
+
+  @media (min-width: 720px) {
+    .body-wrapper {
+      padding: 50px 110px;
+    }
+  }
+
+  @media (min-width: 1028px) {
+    .charts {
+      flex-direction: row;
+    }
   }
 </style>
 
@@ -60,8 +73,8 @@
       <PolarChart {data} />
       <DetailInfo {data} />
     {/if}
-
   </div>
+
   {#if loadingAllHistorical}
     <Loading />
   {:else}

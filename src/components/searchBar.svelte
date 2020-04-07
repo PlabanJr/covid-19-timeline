@@ -4,6 +4,8 @@
   let searchQuery = "";
 
   const changeCurrentCountry = () => {
+    if (searchQuery.trim() === "") return;
+
     setCurrentCountry(searchQuery);
   };
 </script>

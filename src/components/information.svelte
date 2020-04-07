@@ -50,10 +50,12 @@
     justify-content: space-between;
     align-items: center;
     text-transform: uppercase;
+    flex-direction: column;
   }
 
   .updated-at {
-    font-size: 15px;
+    display: flex;
+    font-size: 12px;
     text-transform: uppercase;
   }
 
@@ -65,6 +67,7 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
+    flex-direction: column;
   }
 
   h2,
@@ -76,7 +79,7 @@
     border: 2px solid #ddd;
     border-radius: 10px;
     box-shadow: #ddd 2px 3px;
-    width: 100%;
+    width: 90%;
     padding: 20px;
     margin: 10px;
   }
@@ -100,9 +103,28 @@
   .placeholder {
     color: #ddd;
   }
+
+  @media (min-width: 1028px) {
+    .wrapper {
+      flex-direction: row;
+    }
+
+    .cards {
+      width: 100%;
+    }
+  }
+  @media (min-width: 420px) {
+    .updated-at {
+      font-size: 15px;
+    }
+
+    .global-head {
+      flex-direction: row;
+    }
+  }
 </style>
 
-<header>
+<header id="information-header">
   <div class="global-head">
     {header}
     <div class="updated-at">
@@ -113,7 +135,6 @@
 </header>
 
 <section class="wrapper">
-
   {#if !hideCases}
     <div class="total-cases cards">
       <h2 class="title">TOTAL</h2>

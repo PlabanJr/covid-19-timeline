@@ -56,7 +56,7 @@
   }
 </style>
 
-<ul id="listCC">
+<ul>
   {#if loading}
     <Loading />
   {:else}

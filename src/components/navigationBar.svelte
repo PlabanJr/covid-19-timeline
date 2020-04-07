@@ -31,6 +31,7 @@
     font-size: 16px;
     cursor: pointer;
     font-weight: normal;
+    margin: 0 6px;
   }
 
   a {
@@ -61,10 +62,18 @@
     font-size: 2rem;
     display: flex;
     justify-content: space-between;
+    flex-direction: column;
+    align-items: center;
   }
 
   img {
     height: 24px;
+  }
+
+  @media (min-width: 550px) {
+    nav {
+      flex-direction: row;
+    }
   }
 </style>
 
@@ -87,13 +96,6 @@
         aria-current={segment === 'countries' ? 'page' : undefined}
         href="countries">
         COUNTRIES
-      </a>
-    </li>
-    <li>
-      <a
-        aria-current={segment === 'symptoms-precautions' ? 'page' : undefined}
-        href="symptoms-precautions">
-        SYMPTOMS & PREVENTIONS
       </a>
     </li>
     <li>

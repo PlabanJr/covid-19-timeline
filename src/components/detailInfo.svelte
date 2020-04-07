@@ -58,13 +58,21 @@
 </script>
 
 <style>
-  .chart-wrapper {
+  .detail-chart-wrapper {
     border: 1px solid #ddd;
     border-radius: 10px;
-    padding: 10px 100px;
+    padding: 10px;
+    margin-top: 20px;
+  }
+
+  @media (min-width: 1028px) {
+    .detail-chart-wrapper {
+      padding: 10px 100px;
+      margin-top: 0px;
+    }
   }
 </style>
 
-<div class="chart-wrapper" style={`height: ${height}`}>
+<div class="detail-chart-wrapper" style={`height: ${height}`}>
   <canvas bind:this={deatilChart} />
 </div>

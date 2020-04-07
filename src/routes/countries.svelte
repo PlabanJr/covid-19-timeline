@@ -42,6 +42,9 @@
   const setCurrentCountry = currentCountry => {
     getHistoricalData(currentCountry);
 
+    const infoHeader = document.getElementById("information-header");
+    infoHeader.scrollIntoView({ behavior: "smooth", block: "start" });
+
     currentCountryData = countries.find(
       country => country.country.toLowerCase() === currentCountry.toLowerCase()
     );
@@ -53,6 +56,7 @@
     display: flex;
     justify-content: space-between;
     padding-top: 50px;
+    flex-direction: column;
   }
 
   .left-wrapper,
@@ -60,11 +64,18 @@
     display: flex;
     flex-direction: column;
     flex: 2;
-    padding: 0px 20px 20px 120px;
+    padding: 0px 25px;
   }
 
   .right-wrapper {
-    padding: 0px 120px 20px 20px;
+    padding: 0px 25px;
+  }
+
+  @media (min-width: 1028px) {
+    .wrapper {
+      flex-direction: row;
+      padding: 50px 120px 0px 120px;
+    }
   }
 </style>
 
@@ -79,7 +90,7 @@
       data={currentCountryData}
       {loading}
       header={currentCountryData.country || 'country'}
-      {hideCases} />
+      hideCases={true} />
 
     {#if chartLoading}
       <Loading />

@@ -40,7 +40,13 @@
   .chart-wrapper {
     border: 1px solid #ddd;
     border-radius: 10px;
-    padding: 10px 100px;
+    padding: 10px;
+  }
+
+  @media (min-width: 720px) {
+    .chart-wrapper {
+      padding: 10px 100px;
+    }
   }
 </style>
 
