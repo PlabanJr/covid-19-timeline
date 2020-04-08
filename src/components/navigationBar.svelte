@@ -99,7 +99,7 @@
       </a>
     </li>
     <li>
-      <a href="https://github.com/PlabanJr" target="_blank">
+      <a href="https://github.com/PlabanJr/covid-19-timeline" target="_blank">
         <img src="github-image.svg" alt="github" />
       </a>
     </li>
