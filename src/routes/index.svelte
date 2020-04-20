@@ -15,7 +15,7 @@
 
   onMount(() => {
     axios
-      .get("https://corona.lmao.ninja/all")
+      .get("https://corona.lmao.ninja/v2/all")
       .then(res => {
         data = res.data;
         loadingAll = false;

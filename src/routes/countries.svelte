@@ -17,7 +17,7 @@
 
   onMount(() => {
     axios
-      .get("https://corona.lmao.ninja/countries")
+      .get("https://corona.lmao.ninja/v2/countries")
       .then(response => {
         countries = response.data;
         currentCountryData = response.data[0];
